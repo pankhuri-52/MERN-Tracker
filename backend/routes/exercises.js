@@ -25,3 +25,5 @@ router.route('/add').post((req,res) => {
     .then(() => res.json('Exercise Added!'))
     .catch(err => res.status(400).json('Error : '+err));
 });
+
+module.exports = router;
