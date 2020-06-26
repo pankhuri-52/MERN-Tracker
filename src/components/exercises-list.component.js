@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 /* functional react component */
-const Exercise = props => {
+const Exercise = props => (
     <tr>
         <td>{props.exercise.username}</td>
         <td>{props.exercise.description}</td>
@@ -14,7 +14,7 @@ const Exercise = props => {
             <a href="#" onClick={() => {props.deleteExercise(props.exercise._id)}}>delete</a>
         </td>
     </tr>
-}
+)
 
 export default class ExercisesList extends Component {
     
