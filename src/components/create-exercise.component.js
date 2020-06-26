@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -22,12 +23,18 @@ export default class CreateExercise extends Component {
         }
     }
     
-    /* RIght before anything loads to the screen, this method is called */
+    /* RIght before anything loads to the screen, this method is called
+           it should show all the users that are currently being added to the database */
     componentDidMount() {
-        this.setState({
-            users : ['test user'] , /* we ll directly load it from database */
-            username : 'test user'
-        })
+       axios.get('http://localhost:5000/users/')
+       .then(response => {
+           if(response.data.length > 0) {
+               this.setState({
+                   users : response.data.map(user => user.username),
+                   username : response.data[0].username
+               })
+           }
+       })
     }
 
     onChangeUsername(e) {
@@ -64,6 +71,10 @@ export default class CreateExercise extends Component {
             date : this.state.date
         }
         console.log(exercise);
+
+        axios.post('http://localhost:5000/exercises/add',exercise)
+        .then(res => console.log(res.data))
+
         window.location='/'; /* take the user back to the homepage */
     }
 
